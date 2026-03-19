@@ -21,4 +21,18 @@ public class AuthController(AuthService service) : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<AuthResponseDto>> Login(LoginDto dto)
+    {
+        try
+        {
+            var result = await service.Login(dto);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return Unauthorized(e.Message);
+        }
+    }
 }

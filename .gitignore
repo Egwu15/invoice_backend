@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# JetBrains Rider / IntelliJ
+.idea/
+*.sln.DotSettings.user
+
+# .NET build output
+**/bin/
+**/obj/
+
+# Local development settings
+appsettings.Local.json
+appsettings.*.local.json
