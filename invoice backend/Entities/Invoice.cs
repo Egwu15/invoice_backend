@@ -7,6 +7,12 @@ public class Invoice
     public int Id { get; init; }
 
     [Required]
+    public User User { get; set; }
+
+    [Required]
+    public int UserId { get; set; }
+
+    [Required]
     [MaxLength(60)]
     public string ClientName { get; set; } = string.Empty;
 
@@ -34,7 +40,7 @@ public class Invoice
 
     public DateTime? DueDate { get; set; }
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
 
     public ICollection<InvoiceItem> Items { get; set; } = new List<InvoiceItem>();
 }

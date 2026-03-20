@@ -12,7 +12,6 @@ public class InvoiceItem
     [MaxLength(50)]
     public required string Name { set; get; }
 
-    [Range(1, double.MaxValue)]
     [Column(TypeName = "decimal(18,2)")]
     public decimal Amount { set; get; } = 0;
 
