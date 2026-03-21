@@ -1,3 +1,5 @@
+using invoice_backend.Enums;
+
 namespace invoice_backend.DTOs.Invoice;
 
 public class InvoiceSummaryDto
@@ -19,6 +21,7 @@ public class InvoiceSummaryDto
 
     public string BillTo { get; set; } = string.Empty;
 
+    public InvoiceStatus Status { get; set; }
 
     public string SendTo { get; set; } = string.Empty;
 

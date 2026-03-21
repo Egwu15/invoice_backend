@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using invoice_backend.Enums;
 
 namespace invoice_backend.Entities;
 
@@ -34,6 +35,8 @@ public class Invoice
     [Required]
     [MaxLength(200)]
     public string SendTo { get; set; } = string.Empty;
+
+    public InvoiceStatus Status { get; set; } = InvoiceStatus.Draft;
 
     [MaxLength(200)]
     public string? SenderAddress { get; set; }

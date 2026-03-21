@@ -1,6 +1,7 @@
 using System.Text;
 using invoice_backend.Data;
 using invoice_backend.Entities;
+using invoice_backend.Middleware;
 using invoice_backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -52,6 +53,8 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<InvoiceService>();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

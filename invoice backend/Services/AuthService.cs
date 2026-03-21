@@ -46,12 +46,12 @@ public class AuthService(
     public async Task<AuthResponseDto> Login(LoginDto dto)
     {
         var user = await context.Users.FirstOrDefaultAsync(user => user.Email == dto.Email);
-        if (user is null) throw new InvalidOperationException("Invalid email or password");
+        if (user is null) throw new UnauthorizedAccessException("Invalid email or password");
 
         var hashedPassword = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
 
         if (hashedPassword is not PasswordVerificationResult.Success)
-            throw new InvalidOperationException("Invalid email or password");
+            throw new UnauthorizedAccessException("Invalid email or password");
 
         var tokenValue = GenerateToken(user);
 
