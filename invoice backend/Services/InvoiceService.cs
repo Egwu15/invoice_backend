@@ -165,4 +165,25 @@ public class InvoiceService(ApplicationDbContext context)
         context.Invoices.Remove(invoice);
         await context.SaveChangesAsync();
     }
+
+    public async Task<InvoiceStatsDto> GetInvoiceStats(int userId)
+    {
+        var invoices = context.Invoices.Where(invoice => invoice.UserId == userId);
+        var totalInvoices = await invoices.CountAsync();
+        var totalPaid = await invoices.CountAsync(invoice => invoice.Status == InvoiceStatus.Paid);
+        var totalPending = await invoices.CountAsync(invoice => invoice.Status == InvoiceStatus.Pending);
+        var totalRevenue = await context.InvoiceItems
+            .Where(item => item.Invoice != null && item.Invoice.UserId == userId)
+            .Where(item =>  item.Invoice!.Status == InvoiceStatus.Paid)
+            .SumAsync(item => item.Amount * item.Quantity);
+
+
+        return new InvoiceStatsDto
+        {
+            TotalInvoices = totalInvoices,
+            TotalPaid = totalPaid,
+            TotalPending = totalPending,
+            TotalRevenue = totalRevenue
+        };
+    }
 }

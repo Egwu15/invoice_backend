@@ -63,6 +63,15 @@ public class InvoiceController(InvoiceService service) : ControllerBase
         return Ok();
     }
 
+    [HttpGet("stats")]
+    public async Task<ActionResult<InvoiceStatsDto>> GetInvoiceStatus()
+    {
+        var user = GetUserId();
+        if (user is null) return Unauthorized();
+        var stats = await service.GetInvoiceStats(user.Value);
+        return Ok(stats);
+    }
+
     private int? GetUserId()
     {
         var user = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
